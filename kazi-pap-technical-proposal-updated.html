@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kazi Pap! Technical Proposal</title>
+  <style>
+    :root {
+      --ink: #101410;
+      --muted: #66706a;
+      --paper: #fbfaf6;
+      --card: #ffffff;
+      --line: #dde3dc;
+      --soft: #eef3ec;
+      --green: #215a3d;
+      --green-2: #2f7d55;
+      --lime: #d6f36b;
+      --gold: #f2bc4c;
+      --terracotta: #c8633e;
+      --shadow: 0 24px 70px rgba(18, 30, 22, 0.10);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(214, 243, 107, .35), transparent 30%),
+        radial-gradient(circle at 92% 6%, rgba(242, 188, 76, .18), transparent 27%),
+        linear-gradient(180deg, #f8faf3 0%, var(--paper) 42%, #f4f0e9 100%);
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page-shell {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 22px 64px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 34px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 760;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--green), var(--green-2) 58%, var(--lime));
+      box-shadow: 0 12px 26px rgba(33, 90, 61, 0.23);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,.75);
+      border-radius: 999px;
+      right: -3px;
+      bottom: 5px;
+    }
+
+    .meta-pill {
+      padding: 10px 14px;
+      border: 1px solid rgba(16, 20, 16, .09);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .72);
+      color: var(--muted);
+      font-size: 13px;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero {
+      min-height: 640px;
+      border-radius: 38px;
+      padding: clamp(30px, 6vw, 64px);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.62)),
+        linear-gradient(160deg, rgba(33,90,61,.12), rgba(214,243,107,.12));
+      border: 1px solid rgba(16, 20, 16, .08);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      right: -140px;
+      top: -120px;
+      width: 420px;
+      height: 420px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(33,90,61,.17), transparent 62%);
+    }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .72fr);
+      gap: 46px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(33, 90, 61, .09);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 720;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, h4, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: clamp(44px, 7.5vw, 86px);
+      line-height: .92;
+      letter-spacing: -.075em;
+      margin-bottom: 20px;
+    }
+
+    .hero-lede {
+      max-width: 690px;
+      font-size: clamp(18px, 2vw, 22px);
+      color: #3f4942;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 750;
+      font-size: 14px;
+      border: 1px solid transparent;
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      color: white;
+      box-shadow: 0 14px 28px rgba(16,20,16,.18);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,.82);
+      border-color: rgba(16,20,16,.12);
+      color: var(--ink);
+    }
+
+    .hero-card {
+      border-radius: 32px;
+      background: #101410;
+      color: white;
+      padding: 24px;
+      box-shadow: 0 30px 80px rgba(16, 20, 16, .23);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% 12%, rgba(214, 243, 107, .32), transparent 28%),
+        radial-gradient(circle at 8% 92%, rgba(242, 188, 76, .24), transparent 30%);
+      pointer-events: none;
+    }
+
+    .hero-card > * {
+      position: relative;
+    }
+
+    .price-lockup {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .price-mini {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,.055);
+    }
+
+    .price-mini strong {
+      font-size: 25px;
+      letter-spacing: -.04em;
+    }
+
+    .price-mini span {
+      color: rgba(255,255,255,.67);
+      font-size: 13px;
+    }
+
+    .section {
+      margin-top: 30px;
+      padding: clamp(26px, 4vw, 44px);
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(16, 20, 16, .08);
+      box-shadow: 0 12px 48px rgba(18, 30, 22, 0.055);
+      backdrop-filter: blur(10px);
+    }
+
+    .section.plain {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .72fr) minmax(280px, .42fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-size: clamp(31px, 4.5vw, 54px);
+      line-height: .96;
+      letter-spacing: -.055em;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 22px;
+      letter-spacing: -.035em;
+      line-height: 1.08;
+      margin-bottom: 10px;
+    }
+
+    h4 {
+      margin-bottom: 8px;
+      letter-spacing: -.02em;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 20px;
+      min-height: 100%;
+    }
+
+    .card.tint {
+      background: linear-gradient(180deg, #fff, #f7fbf3);
+    }
+
+    .num {
+      width: 34px;
+      height: 34px;
+      border-radius: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--soft);
+      color: var(--green);
+      font-weight: 820;
+      margin-bottom: 16px;
+    }
+
+    .mini-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: var(--green);
+      font-weight: 820;
+      margin-bottom: 8px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .flow-step {
+      padding: 18px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(33,90,61,.14);
+      background: #f9fcf5;
+      text-align: center;
+      font-weight: 760;
+      position: relative;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--green);
+      font-weight: 900;
+      z-index: 2;
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 26px;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 48px rgba(16, 20, 16, .065);
+    }
+
+    .pricing-card.featured {
+      background: var(--ink);
+      color: white;
+      border-color: rgba(255,255,255,.16);
+      transform: translateY(-8px);
+    }
+
+    .pricing-card.featured .muted,
+    .pricing-card.featured li,
+    .pricing-card.featured .scope-note {
+      color: rgba(255,255,255,.72);
+    }
+
+    .pricing-card.featured .tag {
+      background: rgba(214,243,107,.16);
+      color: var(--lime);
+      border-color: rgba(214,243,107,.32);
+    }
+
+    .tag {
+      display: inline-flex;
+      border: 1px solid rgba(33,90,61,.16);
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: var(--green);
+      background: rgba(33,90,61,.075);
+      font-size: 12px;
+      font-weight: 820;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 16px 0 14px;
+    }
+
+    .price strong {
+      font-size: 48px;
+      line-height: 1;
+      letter-spacing: -.07em;
+    }
+
+    .price span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    ul {
+      padding-left: 0;
+      margin: 18px 0 0;
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      gap: 10px;
+      margin: 11px 0;
+      color: #38413b;
+      font-size: 14px;
+    }
+
+    li::before {
+      content: "✓";
+      width: 19px;
+      height: 19px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(33,90,61,.10);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+      margin-top: 1px;
+    }
+
+    .featured li::before {
+      background: rgba(214,243,107,.16);
+      color: var(--lime);
+    }
+
+    .scope-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 14px;
+      border-top: 1px solid rgba(102,112,106,.18);
+      padding-top: 14px;
+    }
+
+    .matrix {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      background: #f5f8f1;
+      color: var(--green);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .check {
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .dash {
+      color: #a4aaa5;
+      font-weight: 700;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      counter-reset: phase;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 18px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+    }
+
+    .week {
+      color: var(--green);
+      font-weight: 850;
+      letter-spacing: -.02em;
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stack-pill {
+      padding: 13px 10px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .split-highlight {
+      display: grid;
+      grid-template-columns: 1fr .82fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .dark-panel {
+      border-radius: 28px;
+      background: #111711;
+      color: white;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dark-panel::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: rgba(214,243,107,.20);
+      right: -90px;
+      bottom: -100px;
+      filter: blur(2px);
+    }
+
+    .dark-panel > * {
+      position: relative;
+    }
+
+    .dark-panel .muted {
+      color: rgba(255,255,255,.68);
+    }
+
+    .phase-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .phase-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+    }
+
+    .phase-card strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .quote {
+      padding: 24px;
+      border-radius: 24px;
+      background: #f7fbf3;
+      border: 1px solid rgba(33,90,61,.14);
+      font-size: 18px;
+      color: #2f3a32;
+    }
+
+    .footer {
+      margin-top: 34px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 24px 6px;
+    }
+
+    .print-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 13px;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .section-head,
+      .pricing,
+      .split-highlight,
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-step:not(:last-child)::after {
+        content: "↓";
+        right: 50%;
+        top: auto;
+        bottom: -15px;
+        transform: translateX(50%);
+      }
+
+      .stack-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .phase-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card.featured {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page-shell {
+        padding: 20px 14px 48px;
+      }
+
+      .topbar,
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero {
+        border-radius: 28px;
+        min-height: auto;
+      }
+
+      .matrix {
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 760px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #111;
+      }
+
+      .page-shell {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .hero,
+      .section,
+      .pricing-card,
+      .card,
+      .dark-panel,
+      .timeline-item,
+      .matrix {
+        box-shadow: none !important;
+      }
+
+      .hero,
+      .section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-top: 18px;
+      }
+
+      .btn,
+      .hero-actions,
+      .print-note {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <div>Kazi Pap! Technical Proposal</div>
+          <div class="small muted">Prepared by Codenetic Team</div>
+        </div>
+      </div>
+      <div class="meta-pill">Mobile-first gig marketplace · Tanzania · MVP planning</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Technical proposal</div>
+          <h1>Building Tanzania’s youth gig super-app with a focused MVP path.</h1>
+          <p class="hero-lede">
+            Kazi Pap! is designed as a two-sided mobile platform that connects young workers with customers who need fast services, errands, skilled work, and product access. This proposal breaks the idea into practical build options so the client can start lean, validate the marketplace, then scale with confidence.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#scope-options">View Scope Options</a>
+            <a class="btn secondary" href="#phased-approach">See Phased Approach</a>
+          </div>
+          <p class="print-note">Tip: Use browser print or Save as PDF for a clean client-ready export.</p>
+        </div>
+
+        <aside class="hero-card">
+          <div class="mini-label">Proposal summary</div>
+          <h3>Three ways to start without losing the bigger product vision.</h3>
+          <p class="muted">The build can begin as a focused marketplace MVP or move directly into a richer launch version with stronger automation, payments, and admin controls.</p>
+          <div class="price-lockup">
+            <div class="price-mini">
+              <div>
+                <strong>$5,000</strong><br />
+                <span>Full launch-focused MVP</span>
+              </div>
+              <span>Recommended</span>
+            </div>
+            <div class="price-mini">
+              <div>
+                <strong>$2,200</strong><br />
+                <span>Trimmed pilot version</span>
+              </div>
+              <span>Lean start</span>
+            </div>
+            <div class="price-mini">
+              <div>
+                <strong>Phased</strong><br />
+                <span>Start small, expand safely</span>
+              </div>
+              <span>Flexible</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="product-understanding">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Product understanding</div>
+          <h2>The core product is not just job posting. It is trust, speed, and payout confidence.</h2>
+        </div>
+        <p class="muted">
+          The strongest MVP is the loop where a customer posts work, a verified worker accepts, the job is tracked, payment is handled safely, and both sides build reputation.
+        </p>
+      </div>
+
+      <div class="flow" aria-label="Core marketplace flow">
+        <div class="flow-step">Post job</div>
+        <div class="flow-step">Match worker</div>
+        <div class="flow-step">Track work</div>
+        <div class="flow-step">Release payment</div>
+        <div class="flow-step">Rate & rehire</div>
+      </div>
+    </section>
+
+    <section class="section plain">
+      <div class="grid-4">
+        <div class="card tint">
+          <div class="num">01</div>
+          <h3>Worker app</h3>
+          <p class="muted">Youth can onboard quickly, create profiles, set skills, view nearby jobs, accept work, update progress, and receive earnings.</p>
+        </div>
+        <div class="card tint">
+          <div class="num">02</div>
+          <h3>Customer app</h3>
+          <p class="muted">Customers can post tasks, choose workers, confirm bookings, track progress, communicate, pay, and leave ratings.</p>
+        </div>
+        <div class="card tint">
+          <div class="num">03</div>
+          <h3>Backend platform</h3>
+          <p class="muted">The backend manages users, jobs, matching, wallets, notifications, location, chat, ratings, and activity history.</p>
+        </div>
+        <div class="card tint">
+          <div class="num">04</div>
+          <h3>Admin control</h3>
+          <p class="muted">The admin panel gives the business team visibility over users, jobs, payments, disputes, categories, and platform health.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Feature breakdown</div>
+          <h2>What the platform needs to become usable, trusted, and fundable.</h2>
+        </div>
+        <p class="muted">The MVP should avoid vanity features and focus on features that prove demand, supply, service completion, and money movement.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Supply side: youth workers</h3>
+          <ul>
+            <li>Phone number registration and OTP verification</li>
+            <li>Worker profile with photo, location, bio, skills, and availability</li>
+            <li>Service categories for skilled, semi-skilled, and quick tasks</li>
+            <li>Nearby job feed with pay, distance, urgency, and category filters</li>
+            <li>Accept, decline, or request clarification before confirming work</li>
+            <li>Job progress updates: accepted, on the way, started, completed</li>
+            <li>Wallet balance, payout history, and earning summary</li>
+            <li>Ratings and profile reputation</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Demand side: customers/businesses</h3>
+          <ul>
+            <li>Customer signup with phone number and basic profile</li>
+            <li>Post task with category, description, budget, urgency, and location</li>
+            <li>Instant worker suggestions based on skill, proximity, and availability</li>
+            <li>Worker profile preview with rating, price, and status</li>
+            <li>Booking confirmation and live job status tracking</li>
+            <li>In-app communication for job coordination</li>
+            <li>Payment confirmation and completion approval</li>
+            <li>Ratings, reviews, and rehire flow</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Admin and operations</h3>
+          <ul>
+            <li>Dashboard for total users, active jobs, completed jobs, and revenue</li>
+            <li>User management for workers and customers</li>
+            <li>Worker verification review and approval workflow</li>
+            <li>Job monitoring with status, timestamps, and cancellation visibility</li>
+            <li>Category and service management</li>
+            <li>Payment and payout monitoring</li>
+            <li>Dispute and support ticket tracking</li>
+            <li>Basic moderation for reviews and product listings</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Growth modules</h3>
+          <ul>
+            <li>Micro-learning modules for worker upskilling</li>
+            <li>Product selling for crafts, food, and second-hand items</li>
+            <li>Referral rewards for worker/customer acquisition</li>
+            <li>Gamified badges for completed jobs and high ratings</li>
+            <li>Low-data mode optimization for basic smartphones</li>
+            <li>Swahili and English interface support</li>
+            <li>Emergency/help button and safety reporting</li>
+            <li>Community groups by category or city</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="integrations">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Integrations</div>
+          <h2>The integrations are where the platform becomes real, not just nicely dressed wireframes.</h2>
+        </div>
+        <p class="muted">Payments, notifications, realtime updates, and maps should be planned carefully because they directly affect trust and reliability.</p>
+      </div>
+
+      <div class="matrix">
+        <table>
+          <thead>
+            <tr>
+              <th>Integration</th>
+              <th>Purpose</th>
+              <th>MVP priority</th>
+              <th>Complexity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Phone OTP</strong></td>
+              <td>Fast mobile-first signup and account verification.</td>
+              <td>Required</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td><strong>Mobile Money</strong></td>
+              <td>M-Pesa, Airtel Money, and Tigo Pesa payments, wallet movement, and payouts.</td>
+              <td>Required for launch</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td><strong>Maps & Geolocation</strong></td>
+              <td>Nearby jobs, worker proximity, job location, and route guidance.</td>
+              <td>Required</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td><strong>Push Notifications</strong></td>
+              <td>New jobs, booking updates, payment alerts, and status changes.</td>
+              <td>Required</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td><strong>Realtime Updates</strong></td>
+              <td>Live job status, matching, chat, and activity sync.</td>
+              <td>Recommended</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td><strong>Cloud Storage</strong></td>
+              <td>Profile photos, worker documents, product images, and media assets.</td>
+              <td>Required</td>
+              <td>Low to Medium</td>
+            </tr>
+            <tr>
+              <td><strong>Analytics & Logs</strong></td>
+              <td>Track completed jobs, failed payments, user behavior, and platform health.</td>
+              <td>Recommended</td>
+              <td>Medium</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="technical-stack">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Recommended stack</div>
+          <h2>A practical stack built for mobile, marketplace logic, and controlled scaling.</h2>
+        </div>
+        <p class="muted">The stack should prioritize speed of development, clean maintenance, and enough flexibility for payments and realtime flows.</p>
+      </div>
+
+      <div class="stack-grid">
+        <div class="stack-pill">Flutter / React Native</div>
+        <div class="stack-pill">Node.js / NestJS</div>
+        <div class="stack-pill">PostgreSQL</div>
+        <div class="stack-pill">Redis</div>
+        <div class="stack-pill">Firebase FCM</div>
+        <div class="stack-pill">WebSockets</div>
+        <div class="stack-pill">Google Maps / Mapbox</div>
+        <div class="stack-pill">Mobile Money APIs</div>
+        <div class="stack-pill">S3 / Supabase Storage</div>
+        <div class="stack-pill">Next.js Admin</div>
+        <div class="stack-pill">DigitalOcean / AWS</div>
+        <div class="stack-pill">Sentry / Analytics</div>
+      </div>
+    </section>
+
+    <section class="section" id="scope-options">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Creative scope options</div>
+          <h2>Three ways to move forward based on budget, risk, and launch ambition.</h2>
+        </div>
+        <p class="muted">Each option is structured to protect the core business loop while giving the client a clear reason to choose the right level of investment.</p>
+      </div>
+
+      <div class="pricing">
+        <article class="pricing-card">
+          <div class="tag">Lean pilot</div>
+          <h3>Trimmed-down MVP</h3>
+          <div class="price"><strong>$2,200</strong><span>starter build</span></div>
+          <p class="muted">Best for validating the core concept with a small controlled user group before committing to the full operational platform.</p>
+          <ul>
+            <li>Worker and customer onboarding</li>
+            <li>Basic worker profiles and categories</li>
+            <li>Customer job posting flow</li>
+            <li>Manual or simplified matching</li>
+            <li>Basic job status tracking</li>
+            <li>Simple ratings and reviews</li>
+            <li>Basic admin dashboard</li>
+            <li>Payment flow prepared structurally, with limited or manual handling depending on API readiness</li>
+          </ul>
+          <p class="scope-note">Ideal if the client wants a fast proof-of-concept and can accept operational workarounds during the first pilot.</p>
+        </article>
+
+        <article class="pricing-card featured">
+          <div class="tag">Recommended</div>
+          <h3>Full launch-focused MVP</h3>
+          <div class="price"><strong>$5,000</strong><span>complete MVP</span></div>
+          <p class="muted">Best for a more serious launch where the client needs marketplace credibility, stronger automation, admin visibility, and payment confidence.</p>
+          <ul>
+            <li>Complete worker and customer mobile app flows</li>
+            <li>Phone OTP authentication</li>
+            <li>Worker verification-ready profile structure</li>
+            <li>Job posting, nearby job feed, and matching logic</li>
+            <li>Booking confirmation and progress tracking</li>
+            <li>In-app chat or structured messaging</li>
+            <li>Wallet, payment, and payout flow integration planning</li>
+            <li>Mobile money integration subject to provider/API access</li>
+            <li>Push notifications for key events</li>
+            <li>Admin panel for users, jobs, payments, disputes, and categories</li>
+            <li>Ratings, reviews, and basic reporting</li>
+            <li>QA, deployment support, and launch handover</li>
+          </ul>
+          <p class="scope-note">This is the stronger recommendation because Kazi Pap! depends heavily on trust, payment visibility, and operational control.</p>
+        </article>
+
+        <article class="pricing-card">
+          <div class="tag">Flexible path</div>
+          <h3>Phased build</h3>
+          <div class="price"><strong>Milestone</strong><span>based</span></div>
+          <p class="muted">Best if the client wants to start confidently without carrying the full launch budget immediately.</p>
+          <ul>
+            <li>Phase 1: Discovery, UX, architecture, and clickable prototype</li>
+            <li>Phase 2: Core marketplace MVP</li>
+            <li>Phase 3: Payments, wallet, admin, and launch readiness</li>
+            <li>Phase 4: Product selling, learning modules, referrals, and growth features</li>
+            <li>Each phase produces a usable asset instead of a mysterious development cave</li>
+          </ul>
+          <p class="scope-note">This keeps momentum high while reducing decision pressure for the client.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="comparison">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Scope comparison</div>
+          <h2>Clear differences, so the client does not compare apples with a suspiciously cheap banana.</h2>
+        </div>
+        <p class="muted">The lower version is not worse. It is deliberately narrower. The full version is better suited for real users and operational confidence.</p>
+      </div>
+
+      <div class="matrix">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>$2,200 Trimmed MVP</th>
+              <th>$5,000 Full MVP</th>
+              <th>Later Growth Phase</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Worker/customer onboarding</strong></td>
+              <td class="check">Included</td>
+              <td class="check">Included</td>
+              <td class="dash">—</td>
+            </tr>
+            <tr>
+              <td><strong>Phone OTP</strong></td>
+              <td>Basic or third-party setup</td>
+              <td class="check">Included</td>
+              <td class="dash">—</td>
+            </tr>
+            <tr>
+              <td><strong>Job posting</strong></td>
+              <td class="check">Included</td>
+              <td class="check">Included</td>
+              <td class="dash">—</td>
+            </tr>
+            <tr>
+              <td><strong>Matching logic</strong></td>
+              <td>Simplified/manual</td>
+              <td>Location, skill, availability, and rating-based</td>
+              <td>AI-assisted recommendations</td>
+            </tr>
+            <tr>
+              <td><strong>Live tracking</strong></td>
+              <td>Status updates only</td>
+              <td>Status + map/location support</td>
+              <td>Advanced live tracking</td>
+            </tr>
+            <tr>
+              <td><strong>Chat</strong></td>
+              <td>Basic messaging or contact bridge</td>
+              <td>Structured in-app chat</td>
+              <td>Call masking</td>
+            </tr>
+            <tr>
+              <td><strong>Payments/wallet</strong></td>
+              <td>Prepared or simplified</td>
+              <td>Integrated flow subject to API readiness</td>
+              <td>Advanced escrow/reconciliation</td>
+            </tr>
+            <tr>
+              <td><strong>Admin panel</strong></td>
+              <td>Basic</td>
+              <td>Full MVP admin</td>
+              <td>Advanced analytics</td>
+            </tr>
+            <tr>
+              <td><strong>Product marketplace</strong></td>
+              <td class="dash">—</td>
+              <td>Optional light structure</td>
+              <td class="check">Recommended</td>
+            </tr>
+            <tr>
+              <td><strong>Micro-learning</strong></td>
+              <td class="dash">—</td>
+              <td>Content-ready structure</td>
+              <td class="check">Recommended</td>
+            </tr>
+            <tr>
+              <td><strong>Referral rewards</strong></td>
+              <td class="dash">—</td>
+              <td class="dash">—</td>
+              <td class="check">Recommended</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="phased-approach">
+      <div class="split-highlight">
+        <div class="dark-panel">
+          <div class="eyebrow">Phased approach</div>
+          <h2>Start with the marketplace engine, then add the super-app layers.</h2>
+          <p class="muted">This approach helps the client avoid overbuilding before the market validates the core earning and hiring loop.</p>
+
+          <div class="phase-cards">
+            <div class="phase-card">
+              <strong>Phase 1</strong>
+              <span>UX, architecture, clickable prototype, and technical plan.</span>
+            </div>
+            <div class="phase-card">
+              <strong>Phase 2</strong>
+              <span>Worker/customer app, job posting, matching, tracking, admin basics.</span>
+            </div>
+            <div class="phase-card">
+              <strong>Phase 3</strong>
+              <span>Payments, wallet, mobile money, stronger admin, QA, launch support.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Suggested milestone structure</h3>
+          <ul>
+            <li><strong>Kickoff milestone:</strong> finalize requirements, UX flow, technical architecture, data model, and delivery plan.</li>
+            <li><strong>Core build milestone:</strong> implement auth, profiles, jobs, matching, booking, tracking, notifications, and basic admin.</li>
+            <li><strong>Launch milestone:</strong> integrate payments, test mobile money flows, resolve bugs, deploy, and hand over.</li>
+            <li><strong>Growth milestone:</strong> add product selling, micro-learning, referrals, gamification, and community features.</li>
+          </ul>
+          <p class="scope-note">This structure gives the client something valuable at each step instead of asking them to fund the entire dream in one gulp, which history suggests humans rarely enjoy.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="timeline">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Timeline</div>
+          <h2>Realistic delivery window with two developers using AI-assisted development.</h2>
+        </div>
+        <p class="muted">AI tools can speed up implementation, but they do not remove product decisions, integrations, QA, provider approvals, and payment testing. Sadly, reality remains installed by default.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="week">Week 1</div>
+          <div>
+            <h3>Technical discovery and UX planning</h3>
+            <p class="muted">Confirm final scope, user roles, payment flow, admin needs, data model, and priority screens.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="week">Weeks 2–3</div>
+          <div>
+            <h3>Design system and core screens</h3>
+            <p class="muted">Design onboarding, worker profile, customer job posting, job feed, booking, tracking, wallet, ratings, and admin structure.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="week">Weeks 3–6</div>
+          <div>
+            <h3>Mobile app and backend foundation</h3>
+            <p class="muted">Build authentication, users, profiles, categories, jobs, booking logic, storage, and core APIs.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="week">Weeks 6–9</div>
+          <div>
+            <h3>Marketplace logic, tracking, chat, and notifications</h3>
+            <p class="muted">Implement matching, job lifecycle, progress updates, push notifications, messaging, ratings, and admin monitoring.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="week">Weeks 9–12</div>
+          <div>
+            <h3>Payments, wallet, QA, and deployment</h3>
+            <p class="muted">Handle payment integration, payout flow, test cases, bug fixing, staging/production deployment, and client handover.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote" style="margin-top: 18px;">
+        <strong>Estimated timeline:</strong> 8–10 weeks for a trimmed pilot, 10–14 weeks for a strong MVP, and 14–18 weeks if payment integration, admin depth, and QA need to be production-ready from day one.
+      </div>
+    </section>
+
+    <section class="section" id="assumptions">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Assumptions</div>
+          <h2>Important notes before pricing gets treated like magic.</h2>
+        </div>
+        <p class="muted">These assumptions keep the proposal fair, realistic, and protected against scope drift disguised as “just one small thing.”</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Client responsibilities</h3>
+          <ul>
+            <li>Provide brand assets, content, policy text, and final business rules</li>
+            <li>Arrange access to mobile money provider APIs and sandbox credentials</li>
+            <li>Provide test users and feedback within agreed review windows</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Scope boundaries</h3>
+          <ul>
+            <li>Advanced fraud detection is not part of the first MVP</li>
+            <li>Full call masking and emergency dispatch workflows can be added later</li>
+            <li>AI matching and advanced analytics are best suited for phase two or three</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Delivery focus</h3>
+          <ul>
+            <li>Prioritize the core earning and hiring loop first</li>
+            <li>Keep the first release lightweight for Tanzanian mobile users</li>
+            <li>Build admin visibility early to support trust and operations</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="recommendation">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Recommendation</div>
+          <h2>The best commercial path is the full MVP, with growth features phased after validation.</h2>
+        </div>
+        <p class="muted">The $2,200 option is useful for a controlled pilot, but the $5,000 version better matches the seriousness of a two-sided marketplace with payments and trust requirements.</p>
+      </div>
+
+      <div class="quote">
+        We recommend launching with the full MVP if the goal is to onboard real users, process jobs confidently, and present Kazi Pap! as a credible youth employment platform. If the client wants to reduce upfront risk, the phased approach can begin with UX, architecture, and a controlled pilot, then expand into mobile money, admin depth, product selling, and upskilling.
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>Prepared for Kazi Pap! · Technical Proposal</div>
+      <div>Pricing and timeline subject to final API access, confirmed scope, and content readiness.</div>
+    </footer>
+  </main>
+</body>
+</html>
